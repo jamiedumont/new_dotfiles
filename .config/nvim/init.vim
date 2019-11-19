@@ -12,6 +12,8 @@ function! PackagerInit() abort
   " Whatever it is that Dirvish does...
   call packager#add('justinmk/vim-dirvish')
 
+  call packager#add('anekos/hledger-vim')
+
   " Emmet keyboard shortcuts
   call packager#add('mattn/emmet-vim')
 
@@ -45,6 +47,9 @@ function! PackagerInit() abort
   " Vim picker for file search
   call packager#add('srstevenson/vim-picker')
 
+  " Vim ripgrep
+  call packager#add('jremmen/vim-ripgrep')
+
   " Vim LSP
   call packager#add('prabirshrestha/async.vim')
   call packager#add('prabirshrestha/vim-lsp')
@@ -75,6 +80,9 @@ colorscheme nord
 
 " Use csscomplete function (Plug)
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
+
+" Use hledger-vim for journal files
+autocmd FileType hledger setlocal omnifunc=hledger#complete#omnifunc
 
 " Highlight leex files as eex
 augroup leex_ft
