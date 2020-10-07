@@ -3,11 +3,19 @@ if &compatible
   set nocompatible
 endif
 
+" Needed for Lua-based config of LSP. Must be manually called before Lua plugins
+packadd nvim-lspconfig
+
+
 " Load Packager (only when needed)
 function! PackagerInit() abort
   packadd vim-packager
 
   call packager#init()
+
+  " Helps with LSP configuration
+  call packager#add('neovim/nvim-lspconfig', { 'type': 'opt' })
+
 
   " Whatever it is that Dirvish does...
   call packager#add('justinmk/vim-dirvish')
@@ -50,24 +58,15 @@ function! PackagerInit() abort
   " Vim ripgrep
   call packager#add('jremmen/vim-ripgrep')
 
-  " Vim LSP
-  call packager#add('prabirshrestha/async.vim')
-  call packager#add('prabirshrestha/vim-lsp')
+
 endfunction
 
 command! PackagerInstall call PackagerInit() | call packager#install()
 
+
+
 scriptencoding utf-8
 set encoding=utf-8
-
-augroup LSC
-  autocmd!
-  autocmd User lsp_setup call lsp#register_server({
-    \ 'name': 'ElixirLS',
-    \ 'cmd': {_->[$HOME.'/.local/share/applications/lsp/language_server.sh']},
-    \ 'whitelist': ['elixir', 'eelixir']
-  \})
-augroup END
 
 " Activate syntax highlighting
 syntax enable
@@ -80,9 +79,6 @@ colorscheme nord
 
 " Use csscomplete function (Plug)
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
-
-" Use hledger-vim for journal files
-autocmd FileType hledger setlocal omnifunc=hledger#complete#omnifunc
 
 " Highlight leex files as eex
 augroup leex_ft
@@ -113,6 +109,25 @@ nnoremap <Leader>wh :split<CR>
 " Show invisibles (tabs and trailing spaces)
 set list
 set listchars=tab:»-,trail:·
+
+" ---
+" LSP
+" ---
+
+" Lua script to configure Language Server integration with NVIM (0.5+)
+lua require("lsp")
+
+" Go to definition
+nnoremap <silent>gd <cmd>lua vim.lsp.buf.definition()<CR>
+" Hover/show docs
+nnoremap <silent>K <cmd>lua vim.lsp.buf.hover()<CR>
+" List all the 'things' in a file
+nnoremap <silent><Leader>i <cmd>lua vim.lsp.buf.document_symbol()<CR>
+
+set completeopt-=preview
+
+autocmd Filetype elixir setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
 
 " Remap <Esc> to something faster
 imap jk <esc>
