@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bashrc: executed by bash(1) for non-login shells.A
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -135,3 +135,6 @@ export B2_ACCOUNT_ID="001d7a4c8143bff0000000006"
 export B2_ACCOUNT_KEY="K0011THV6bZuH6+Wqax64MHIewo6u1s"
 export RESTIC_REPOSITORY="b2:hetzner-server-95-217-224-236"
 export RESTIC_PASSWORD="Jamie170962!"
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
