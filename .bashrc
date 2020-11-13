@@ -128,13 +128,6 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # Customise bash prompt with current working directory
 export PS1="\W "
 
-# Environment variables for Rstic backup to Backblaze B2
-# These exist here as a convenience for checking backup status
-# as restic is run by systemd with config stored in ~/.config/restic-backup.conf
-export B2_ACCOUNT_ID="001d7a4c8143bff0000000006"
-export B2_ACCOUNT_KEY="K0011THV6bZuH6+Wqax64MHIewo6u1s"
-export RESTIC_REPOSITORY="b2:hetzner-server-95-217-224-236"
-export RESTIC_PASSWORD="Jamie170962!"
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
